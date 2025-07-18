@@ -361,8 +361,10 @@ const exp = (function() {
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "");
-                    } else {
+                    } else if (losingStreak_final <= 11) {
                         standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${11 - losingStreak_final} Points`);
+                    } else {
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${11 - losingStreak_final} Points`);
                     };
                 }
 
@@ -410,7 +412,7 @@ const exp = (function() {
         const flowMeasure_play = {
             type: jsPsychSurveyLikert,
             questions: [
-                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel spinning the last wheel?`,
+                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel playing the last round of Feel the Spin?`,
                 name: `flow`,
                 labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
             ],
@@ -514,7 +516,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "17hNxGLvGRCq",
+        experiment_id: "eqy0y49uSeVg",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
