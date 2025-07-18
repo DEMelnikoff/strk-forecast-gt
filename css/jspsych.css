@@ -732,3 +732,33 @@
     text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;
 }
 
+.feedback-title {
+    font-size: 50px;
+    margin-bottom: 30px;
+    color: black;
+}
+
+.feedback-streak {
+    font-size: 65px;
+    font-weight: bold;
+    color: black;
+}
+
+.feedback-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  /* centers the middle of this element */
+    font-size: 80px;
+    font-weight: bold;
+    line-height: 1.1;
+    color: green;
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;
+}
+
+.feedback-container {
+  position: relative;         
+  height: 400px;
+  width: 1000px;
+  text-align: center;
+}

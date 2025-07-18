@@ -182,7 +182,7 @@ const createSpinner = function(canvas, spinnerData, sectors, lose, interactive) 
         lastAngles.shift();
         lastAngles.push(oldAngle);
         render(oldAngle);
-      };
+      }
       
       // decelerate and stop
       else {

@@ -108,7 +108,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
 
           // store data
           let spinnerData = {
-            outcome: [],
+            outcome: null,
           };
           trial.stimulus(c, spinnerData);
 

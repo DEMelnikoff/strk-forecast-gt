@@ -5,11 +5,11 @@ const exp = (function() {
 
     var p = {};
 
-    const playOrPredict = "predict"; 
+    const playOrPredict = "play"; 
 
     const goalType = ["maxWin", "minLose"][Math.floor(Math.random() * 2)]; 
 
-    const nTrials = 12;
+    const nTrials = 15;
 
     jsPsych.data.addProperties({
         playOrPredict: playOrPredict,
@@ -27,13 +27,13 @@ const exp = (function() {
         welcome: [
             `<div class='parent'>
                 <p><strong>Welcome!</strong></p>
-                <p>In this survey, you will answer questions about a game called "Feel the Spin."</p>
-                <p>You will not play the game yourself. Instead, you'll learn the rules of the game, and then predict how others would feel while playing it.</p>
+                <p>In this survey, you will play a game called "Feel the Spin."</p>
+                <p>At various points in the game, you'll report how you feel while playing it.</p>
             </div>`,
 
             `<div class='parent'>
                 <p>The goal of Feel the Spin is to earn as many points as possible.</p>
-                <p>Players earn points by spinning prize wheels.</p>
+                <p>You'll earn points by spinning various prize wheels.</p>
             </div>`,
 
             `<div class='parent'>
@@ -50,8 +50,8 @@ const exp = (function() {
 
         maxWin: [
             `<div class='parent'>
-                <p>In Feel the Spin, earnings are based on winning streaks: the longer a player's winning streaks, the more points they earn.
-                Specifically, whenever a player breaks a winning streak by landing on a losing wedge, they earn 10 points for every consecutive win. For example:</p>
+                <p>In Feel the Spin, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
+                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll earn 10 points for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
                 1 win before a loss = 10 points</br>
                 2 wins before a loss = 20 points</br>
@@ -62,13 +62,13 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>The length of the current winning streak is displayed throughout the game.
-                <br>For example, after three consecutive wins, the following would be displayed:</p>
-                <div class="score-board">
-                    <div class="score-board-title">Winning Streak:</div>
-                    <div class="score-board-score">3</div>
+                <p>The length of your current winning streak is displayed throughout the game.
+                <br>For example, after three consecutive wins, you'd see the following:</p>
+                <div style="margin-top: 50px; height:200px">
+                    <div class="feedback-title">Current Streak:</div>
+                    <div class="feedback-streak">3</div>
+                    <div class="feedback-body"></div>
                 </div>
-                <img src="./img/win-pic.png" style="width:400px; height:400px">
             </div>`,
 
             `<div class='parent'>
@@ -76,19 +76,19 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if a loss occurs after 3 consecutive wins, the following message would appear:</p>
-                <div class="score-board">
-                    <div class="score-board-title">Final Streak:</div>
-                    <div class="score-board-score">3</div>
+                <p>For example, if you lose after 3 consecutive wins, you'd see the following:</p>
+                <div style="margin-top: 50px; height:400px">
+                    <div class="feedback-title">Final Streak:</div>
+                    <div class="feedback-streak">3</div>
+                    <div class="feedback-body">+30 Points</div>
                 </div>
-                <div class="win-text-inst">+30 Points</div>
             </div>`
         ],
 
         minLose: [
             `<div class='parent'>
-                <p>In Feel the Spin, earnings are based on losing streaks: the shorter a player's losing streaks, the more points they earn.
-                Specifically, whenever a player breaks a losing streak by landing on a winning wedge, they earn 11 points minus 1 point for every consecutive loss. For example:</p>
+                <p>In Feel the Spin, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 11 points minus 1 point for every consecutive loss. For example:</p>
                 <p>0 losses before a win = 11 points</br>
                 1 loss before a win = 10 points</br>
                 2 losses before a win = 9 points</br>
@@ -99,13 +99,13 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>The length of the current losing streak is displayed throughout the game.
-                <br>For example, after three consecutive losses, the following would be displayed:</p>
-                <div class="score-board">
-                    <div class="score-board-title">Losing Streak:</div>
-                    <div class="score-board-score">3</div>
+                <p>The length of your current losing streak is displayed throughout the game.
+                <br>For example, after three consecutive losses, you'll see the following:</p>
+                <div style="margin-top: 50px; height:200px">
+                    <div class="feedback-title">Current Streak:</div>
+                    <div class="feedback-streak">3</div>
+                    <div class="feedback-body"></div>
                 </div>
-                <img src="./img/loss-pic.png" style="width:400px; height:400px">
             </div>`,
 
             `<div class='parent'>
@@ -113,28 +113,27 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if a win occurs after 3 consecutive losses, the following message would appear:</p>
-                <div class="score-board">
-                    <div class="score-board-title">Final Streak:</div>
-                    <div class="score-board-score">3</div>
+                <p>For example, if you win after 3 consecutive losses, you'd see the following:</p>
+                <div style="margin-top: 50px; height:400px">
+                    <div class="feedback-title">Final Streak:</div>
+                    <div class="feedback-streak">3</div>
+                    <div class="feedback-body">+8 Points</div>
                 </div>
-                <div class="win-text-inst">+8 Points</div>
             </div>`
         ],
 
-        predict: [
+        play: [
             `<div class='parent'>
-                <p>In Feel the Spin, players answer questions about their feelings.</p>
-                <p>Specifically, players report how <b>immersed</b> and <b>absorbed</b> they felt playing the game.</p>
-                <p><b>IMPORTANT:</b> Players do <i>not</i> rate how much they liked or enjoyed the game. The focus is solely on their sense of immersion and absorption.</p>
+                <p>To spin a prize wheel, just grab and pull it with your cursor.</p>
+                <p>Watch the animation below to see how it's done.</p>
+                <img src="./img/spin-gif.gif" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>Your goal is to guess how <b>immersed</b> and <b>absorbed</b> an average person would feel playing Feel the Spin with different wheels. 
-                Specifically, you'll see a variety of different wheels. Each wheel has different colors and numbers of winning and losing wedges. 
-                For each wheel, your job is to guess how <b>immersed</b> and <b>absorbed</b> an average person would feel playing Feel the Spin with it.</p>
-                <p>Simply provide your best guess about the typical experience.</p>
-            </div>`,   
+                <p>Throughout Feel the Spin, you'll answer questions about your feelings.</p>
+                <p>Specifically, you'll report how <b>immersed</b> and <b>absorbed</b> you felt spinning each wheel.</p>
+                <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed spinning each wheel. The focus is solely on your sense of immersion and absorption.</p>
+            </div>`, 
         ],
 
         postIntro: [   
@@ -155,7 +154,7 @@ const exp = (function() {
 
     const intro = {
         type: jsPsychInstructions,
-        pages: (goalType == "maxWin") ? [...html.welcome, ...html.maxWin, ...html.predict] : [...html.welcome, ...html.minLose, ...html.predict],
+        pages: (goalType == "maxWin") ? [...html.welcome, ...html.maxWin, ...html.play] : [...html.welcome, ...html.minLose, ...html.play],
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -206,7 +205,7 @@ const exp = (function() {
             {
                 prompt: `Which of the following statements is true?`, 
                 name: `attnChk2`, 
-                options: options_predict,
+                options: options,
             },
         ],
         scale_width: 500,
@@ -253,6 +252,7 @@ const exp = (function() {
     *
     */
 
+    // wedge colors
     let vibrantColors = [
       "#D32F2F", // Vivid Red
       "#FBC02D", // Bright Yellow
@@ -272,6 +272,7 @@ const exp = (function() {
         win: {color: null, font: 'white', label:"W", points: 1},
     };
 
+    // define wheels
     let baseline_wheels = [
         {sectors: [ wedges.lose, wedges.lose, wedges.win, wedges.lose, wedges.lose, wedges.win ], wheel_id: 0, reliability: 1, label: "100%", nWin: 2, ev: 2.33, mi: .65},
     ];
@@ -286,10 +287,29 @@ const exp = (function() {
     target_wheels = jsPsych.randomization.repeat(target_wheels, 1);
 
 
+
+    // html functions
+    let displayFeedback = (title, streak, body) => {
+        let html = 
+        `<div class="score-board-blank"></div> 
+        <div class="feedback-container">
+            <div class="feedback-title">${title}</div>
+            <div class="feedback-streak">${streak}</div>
+            <div class="feedback-body">${body}</div>
+        </div>`
+        return html;
+    };
+    
+
+
     const MakeSpinLoop = function(wheel, round, play) {
 
         let outcome;
         let trial = 1;
+        let losingStreak = 0;
+        let winningStreak = 0;
+        let losingStreak_final = 0;
+        let winningStreak_final = 0;
 
         // trial: spinner
         const spin = {
@@ -298,12 +318,6 @@ const exp = (function() {
                 if (trial == 1) {
                     wedges.win.color = vibrantColors.pop();
                     wedges.lose.color = vibrantColors.pop();
-                };
-                if (round > 0 & trial == 1) {
-                    wedges.lose.label = "10";
-                    wedges.lose.points = 10;
-                    wedges.win.label = "15";
-                    wedges.win.points = 15;
                 };
                 createSpinner(c, spinnerData, wheel.sectors, false, true);
             },
@@ -315,7 +329,22 @@ const exp = (function() {
             on_finish: function(data) {
                 data.trial = trial;
                 outcome = data.outcome;
-            }
+                if (outcome == "W") {
+                    winningStreak++;
+                    losingStreak_final = losingStreak;
+                    losingStreak = 0;
+                    if (goalType == "maxWin" && trial == nTrials) {
+                        winningStreak_final = winningStreak;
+                    };
+                } else if (outcome == "L") {
+                    losingStreak++;
+                    winningStreak_final = winningStreak;
+                    winningStreak = 0;
+                    if (goalType == "minLose" && trial == nTrials) {
+                        losingStreak_final = losingStreak;
+                    };
+                };
+            },
         };
 
         const tokens = {
@@ -323,11 +352,20 @@ const exp = (function() {
             stimulus: function() {
                 let standardFeedback;
 
-                if (outcome == "9" || outcome == "15") {
-                    standardFeedback = `<div class="score-board-blank"></div> <div class="feedback-area"> <div class="win-text" style="color:${wedges.win.color}">+${outcome} Points</div>`;
-                } else {
-                    standardFeedback = `<div class="score-board-blank"></div> <div class="feedback-area"> <div class="win-text" style="color:${wedges.lose.color}">+${outcome} Points</div>`;
-                };
+                if (goalType == "maxWin") {
+                    if (outcome == "W" && trial < nTrials) {
+                        standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "");
+                    } else {
+                        standardFeedback = displayFeedback(`Final Streak:`, winningStreak_final, `+${winningStreak_final*10} Points`);
+                    };
+                } else if (goalType == "minLose") {
+                    if (outcome == "L" && trial < nTrials) {
+                        standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "");
+                    } else {
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${11 - losingStreak_final} Points`);
+                    };
+                }
+
 
                 return standardFeedback;
 
@@ -344,7 +382,7 @@ const exp = (function() {
         const spin_loop = {
             timeline: [spin, tokens],
             repetitions: nTrials,
-        }
+        };
 
         const flowMeasure_predict = {
             type: jsPsychCanvasLikert,
@@ -390,7 +428,7 @@ const exp = (function() {
             this.timeline = [spin_loop, flowMeasure_play];
         } else {
             this.timeline = [flowMeasure_predict];
-        }
+        };
     }
 
 
