@@ -130,10 +130,10 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Throughout Feel the Spin, you'll answer questions about your feelings.</p>
-                <p>Specifically, you'll report how <b>immersed</b> and <b>absorbed</b> you felt spinning each wheel.</p>
+                <p>You'll spin a variety of different wheels. Each wheel has different colors and numbers of winning and losing wedges. 
+                For each wheel, you'll report how <b>immersed</b> and <b>absorbed</b> playing Feel the Spin with it.</p>
                 <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed spinning each wheel. The focus is solely on your sense of immersion and absorption.</p>
-            </div>`, 
+            </div>`,   
         ],
 
         postIntro: [   
