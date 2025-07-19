@@ -76,7 +76,7 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you lose after 3 consecutive wins, you'd see the following:</p>
+                <p>For example, if you lost after 3 consecutive wins, you'd see the following:</p>
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">3</div>
@@ -113,7 +113,7 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you win after 3 consecutive losses, you'd see the following:</p>
+                <p>For example, if you won after 3 consecutive losses, you'd see the following:</p>
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">3</div>
