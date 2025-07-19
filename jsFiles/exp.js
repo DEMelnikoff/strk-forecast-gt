@@ -37,7 +37,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel has six wedges, like this:</p>
+                <p>Each wheel is divided into wedges, like this:</p>
                 <img src="./img/pre-pic.png" style="width:400px; height:400px">
             </div>`,
 
@@ -274,14 +274,14 @@ const exp = (function() {
 
     // define wheels
     let baseline_wheels = [
-        {sectors: [ wedges.lose, wedges.lose, wedges.win, wedges.lose, wedges.lose, wedges.win ], wheel_id: 0, reliability: 1, label: "100%", nWin: 2, ev: 2.33, mi: .65},
+        {sectors: [ wedges.lose, wedges.win, wedges.lose, wedges.win ], wheel_id: 0, reliability: 1, label: "100%", nWin: 2, ev: 2.33, mi: .65},
     ];
 
     // define each wheel
     let target_wheels = [
-        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 2.33, mi: .65},
-        {sectors: [ wedges.lose, wedges.win, wedges.lose, wedges.win, wedges.lose, wedges.win ], wheel_id: 2, reliability: 1, label: "100%", nWin: 3, ev: 5, mi: 1},
-        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.win, wedges.win, wedges.lose ], wheel_id: 3, reliability: 1, label: "100%", nWin: 5, ev: 7.67, mi: .65},
+        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 2.33, mi: .65},
+        {sectors: [ wedges.lose, wedges.win, wedges.lose, wedges.win ], wheel_id: 2, reliability: 1, label: "100%", nWin: 3, ev: 5, mi: 1},
+        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.lose ], wheel_id: 3, reliability: 1, label: "100%", nWin: 5, ev: 7.67, mi: .65},
     ];
 
     target_wheels = jsPsych.randomization.repeat(target_wheels, 1);
@@ -525,6 +525,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.round2, exp.round3, exp.round4, exp.demographics, exp.save_data];
+const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round2, exp.round3, exp.round4, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
