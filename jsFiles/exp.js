@@ -51,13 +51,13 @@ const exp = (function() {
         maxWin: [
             `<div class='parent'>
                 <p>In Feel the Spin, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
-                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll earn 30 points for every consecutive win. For example:</p>
+                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll earn 1 point for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
-                1 win before a loss = 30 points</br>
-                2 wins before a loss = 60 points</br>
-                3 wins before a loss = 90 points</br>
-                4 wins before a loss = 120 points</br>
-                5 wins before a loss = 150 points</br>
+                1 win before a loss = 1 point</br>
+                2 wins before a loss = 2 points</br>
+                3 wins before a loss = 3 points</br>
+                4 wins before a loss = 4 points</br>
+                5 wins before a loss = 5 points</br>
                 ...</p>
             </div>`,
 
@@ -76,11 +76,11 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you lost after 10 consecutive wins, you'd see the following:</p>
+                <p>For example, if you lose after 10 consecutive wins, you'll see the following:</p>
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+300 Points</div>
+                    <div class="feedback-body">+10 Points</div>
                 </div>
             </div>`
         ],
@@ -88,13 +88,13 @@ const exp = (function() {
         minLose: [
             `<div class='parent'>
                 <p>In Feel the Spin, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 31 points minus 1 point for every consecutive loss. For example:</p>
-                <p>0 losses before a win = 31 points</br>
-                1 loss before a win = 30 points</br>
-                2 losses before a win = 29 points</br>
-                3 losses before a win = 28 points</br>
-                4 losses before a win = 27 points</br>
-                5 losses before a win = 26 points</br>
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 50 points minus 1 point for every consecutive loss. For example:</p>
+                <p>0 losses before a win = 50 points</br>
+                1 loss before a win = 49 points</br>
+                2 losses before a win = 48 points</br>
+                3 losses before a win = 47 points</br>
+                4 losses before a win = 46 points</br>
+                5 losses before a win = 45 points</br>
                 ...</p>
             </div>`,
 
@@ -113,11 +113,11 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you won after 10 consecutive losses, you'd see the following:</p>
+                <p>For example, if you win after 10 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+21 Points</div>
+                    <div class="feedback-body">+40 Points</div>
                 </div>
             </div>`
         ],
@@ -160,7 +160,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    const ans1 = (goalType == "maxWin") ? `150` : `26`;
+    const ans1 = (goalType == "maxWin") ? `5` : `45`;
 
     const ans2 = (playOrPredict == "play") ? `I will report how immersed and absorbed I felt spinning each wheel.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
@@ -200,7 +200,7 @@ const exp = (function() {
             {
                 prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many points?`, 
                 name: `attnChk1`, 
-                options: ["-5", "0", "26", "150"],
+                options: ["0", "5", "45", "50"],
             },
             {
                 prompt: `Which of the following statements is true?`, 
@@ -254,12 +254,12 @@ const exp = (function() {
 
     // wedge colors
     let vibrantColors = [
-      "#D32F2F", // Vivid Red
+     // "#D32F2F", // Vivid Red
       "#FBC02D", // Bright Yellow
-      "#43A047", // Medium Bright Green
-      "#1976D2", // Vivid Blue
+     // "#43A047", // Medium Bright Green
+     // "#1976D2", // Vivid Blue
       "#7B1FA2", // Vivid Purple
-      "#F57C00", // Bright Orange
+     // "#F57C00", // Bright Orange
       "#00838F", // Deep Cyan
       "#E91E63"  // Bright Magenta
     ];
@@ -357,15 +357,15 @@ const exp = (function() {
                     if (outcome == "W" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "");
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, winningStreak_final, `+${winningStreak_final*30} Points`);
+                        standardFeedback = displayFeedback(`Final Streak:`, winningStreak_final, `+${winningStreak_final} Points`);
                     };
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "");
-                    } else if (losingStreak_final <= 31) {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${31 - losingStreak_final} Points`);
+                    } else if (losingStreak_final <= 50) {
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${50 - losingStreak_final} Points`);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${31 - losingStreak_final} Points`);
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${50 - losingStreak_final} Points`);
                     };
                 }
 
@@ -413,7 +413,7 @@ const exp = (function() {
         const flowMeasure_play = {
             type: jsPsychSurveyLikert,
             questions: [
-                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel playing the last round of Feel the Spin?`,
+                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel spinning the previous wheel?`,
                 name: `flow`,
                 labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
             ],
@@ -517,7 +517,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "P8gym16wR2Js",
+        experiment_id: "IeMy0n4iAoPH",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
