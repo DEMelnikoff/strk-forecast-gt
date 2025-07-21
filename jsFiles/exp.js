@@ -340,7 +340,6 @@ const exp = (function() {
             },
             data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
             on_finish: function(data) {
-                console.log(targetOutcome, targetOutcomes);
                 targetOutcome = targetOutcomes.pop();
                 data.trial = trial;
                 outcome = data.outcome;
