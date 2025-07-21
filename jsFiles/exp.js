@@ -26,14 +26,17 @@ const exp = (function() {
     const html = {
         welcome: [
             `<div class='parent'>
-                <p><strong>Welcome to Feel the Spin!</strong></p>
-                <p>In Feel the Spin, you'll compete for a chance to win a <b>$100.00 bonus</b>.
-                Specifically, you'll earn tokens. Your tokens will be entered into a lottery, and if one of your tokens is drawn, you'll win $100.00.</p>
-                <p>The more tokens you earn, the greater your chances of winning $100.00.</p>
+                <p><strong>Welcome!</strong></p>
+                <p>In this survey, you will play a game called "Feel the Spin."</p>
+                <p>At various points in the game, you'll report how you feel while playing it.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>You'll earn tokens by spinning prize wheels.</p>
+                <p>The goal of Feel the Spin is to earn as many points as possible.</p>
+                <p>You'll earn points by spinning various prize wheels.</p>
+            </div>`,
+
+            `<div class='parent'>
                 <p>Each wheel is divided into wedges, like this:</p>                
                 <img src="./img/pre-pic.png" style="width:400px; height:400px">
             </div>`,
@@ -47,14 +50,14 @@ const exp = (function() {
 
         maxWin: [
             `<div class='parent'>
-                <p>In Feel the Spin, earnings are based on winning streaks: the longer your winning streaks, the more tokens you'll earn.
-                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll earn 1 token for every consecutive win. For example:</p>
-                <p>0 wins before a loss = 0 tokens</br>
-                1 win before a loss = 1 token</br>
-                2 wins before a loss = 2 tokens</br>
-                3 wins before a loss = 3 tokens</br>
-                4 wins before a loss = 4 tokens</br>
-                5 wins before a loss = 5 tokens</br>
+                <p>In Feel the Spin, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
+                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll earn 1 point for every consecutive win. For example:</p>
+                <p>0 wins before a loss = 0 points</br>
+                1 win before a loss = 1 point</br>
+                2 wins before a loss = 2 points</br>
+                3 wins before a loss = 3 points</br>
+                4 wins before a loss = 4 points</br>
+                5 wins before a loss = 5 points</br>
                 ...</p>
             </div>`,
 
@@ -69,7 +72,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>After each loss, a message appears indicating the number of tokens earned.</p>
+                <p>After each loss, a message appears indicating the number of points earned.</p>
             </div>`,
             
             `<div class='parent'>
@@ -77,21 +80,21 @@ const exp = (function() {
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+10 Tokens</div>
+                    <div class="feedback-body">+10 points</div>
                 </div>
             </div>`
         ],
 
         minLose: [
             `<div class='parent'>
-                <p>In Feel the Spin, earnings are based on losing streaks: the shorter your losing streaks, the more tokens you'll earn.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 50 tokens minus 1 token for every consecutive loss. For example:</p>
-                <p>0 losses before a win = 50 tokens</br>
-                1 loss before a win = 49 tokens</br>
-                2 losses before a win = 48 tokens</br>
-                3 losses before a win = 47 tokens</br>
-                4 losses before a win = 46 tokens</br>
-                5 losses before a win = 45 tokens</br>
+                <p>In Feel the Spin, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 50 points minus 1 point for every consecutive loss. For example:</p>
+                <p>0 losses before a win = 50 points</br>
+                1 loss before a win = 49 points</br>
+                2 losses before a win = 48 points</br>
+                3 losses before a win = 47 points</br>
+                4 losses before a win = 46 points</br>
+                5 losses before a win = 45 points</br>
                 ...</p>
             </div>`,
 
@@ -106,7 +109,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>After each win, a message appears indicating the number of tokens earned.</p>
+                <p>After each win, a message appears indicating the number of points earned.</p>
             </div>`,
             
             `<div class='parent'>
@@ -114,7 +117,7 @@ const exp = (function() {
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+40 Tokens</div>
+                    <div class="feedback-body">+40 Points</div>
                 </div>
             </div>`
         ],
@@ -161,7 +164,7 @@ const exp = (function() {
 
     const ans2 = (playOrPredict == "play") ? `I will report how immersed and absorbed I felt spinning each wheel.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
-    const correctAnswer = ["Earn as many tokens as possible", ans1, ans2];
+    const correctAnswer = [ans1, ans2];
 
     const options_play = [
         `I will report how happy I felt spinning each wheel.`, 
@@ -195,18 +198,13 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: `What must you do to earn $100?`, 
+                prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many points?`, 
                 name: `attnChk1`, 
-                options: ["Spin the wheel as fast as possible", "Earn as many tokens as possible"],
-            },
-            {
-                prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many tokens?`, 
-                name: `attnChk2`, 
                 options: ["0", "5", "45", "50"],
             },
             {
                 prompt: `Which of the following statements is true?`, 
-                name: `attnChk3`, 
+                name: `attnChk2`, 
                 options: options,
             },
         ],
@@ -274,21 +272,13 @@ const exp = (function() {
         win: {color: null, font: 'white', label:"W", points: 1},
     };
 
-    // define wheels
-    let baseline_wheels = [
-        {sectors: [ wedges.lose, wedges.win, wedges.lose, wedges.win ], wheel_id: 0, reliability: 1, label: "100%", nWin: 2, ev: 2.33, mi: .65},
-    ];
-
     // define each wheel
     let target_wheels = [
-        // {sectors: [ wedges.lose, wedges.lose, wedges.win, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 2, ev: 2.33, mi: .65},
-        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 2, reliability: 1, label: "100%", nWin: 1, ev: 5, mi: 1},
-        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 3, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
+        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 5, mi: 1},
+        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 2, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
     ];
 
     target_wheels = jsPsych.randomization.repeat(target_wheels, 1);
-
-
 
     // html functions
     let displayFeedback = (title, streak, body) => {
@@ -312,6 +302,26 @@ const exp = (function() {
         let winningStreak = 0;
         let losingStreak_final = 0;
         let winningStreak_final = 0;
+        let targetOutcomes;
+        if (goalType == "maxWin") {
+            if (wheel.nWin == 1) {
+                targetOutcomes = jsPsych.randomization.repeat([0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4], 1);
+                targetOutcomes.unshift(0);
+            } else if (wheel.nWin == 4) {
+                targetOutcomes = jsPsych.randomization.repeat([0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4], 1);
+                targetOutcomes.unshift(4);
+            }
+        } else if (goalType == "minLose") {
+            if (wheel.nWin == 4) {
+                targetOutcomes = jsPsych.randomization.repeat([0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4], 1);
+                targetOutcomes.unshift(0);
+            } else if (wheel.nWin == 1) {
+                targetOutcomes = jsPsych.randomization.repeat([0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4], 1);
+                targetOutcomes.unshift(4);
+            }            
+        };
+
+        let targetOutcome = targetOutcomes.pop();
 
         // trial: spinner
         const spin = {
@@ -322,14 +332,16 @@ const exp = (function() {
                     wedges.lose.color = vibrantColors.pop();
                 };
                 shuffledSectors = jsPsych.randomization.repeat(wheel.sectors, 1);
-                createSpinner(c, spinnerData, shuffledSectors, false, true);
+                createSpinner(c, spinnerData, wheel.sectors, targetOutcome, true);
             },
             canvas_size: [500, 500],
             scoreBoard: function() {
                 return '';
             },
-            data: {round: round + 1, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
+            data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
             on_finish: function(data) {
+                console.log(targetOutcome, targetOutcomes);
+                targetOutcome = targetOutcomes.pop();
                 data.trial = trial;
                 outcome = data.outcome;
                 if (outcome == "W") {
@@ -359,15 +371,15 @@ const exp = (function() {
                     if (outcome == "W" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "");
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, winningStreak_final, `+${winningStreak_final} Tokens`);
+                        standardFeedback = displayFeedback(`Final Streak:`, winningStreak_final, `+${winningStreak_final} Points`);
                     };
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "");
                     } else if (losingStreak_final <= 50) {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${50 - losingStreak_final} Tokens`);
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${50 - losingStreak_final} Points`);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${50 - losingStreak_final} Tokens`);
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${50 - losingStreak_final} Points`);
                     };
                 }
 
@@ -377,7 +389,7 @@ const exp = (function() {
             },
             choices: "NO_KEYS",
             trial_duration: 2000,
-            data: {round: round + 1, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
+            data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
             on_finish: function(data) {
                 data.trial = trial;
                 trial++;
@@ -405,7 +417,7 @@ const exp = (function() {
             ],
             randomize_question_order: false,
             scale_width: 600,
-            data: {round: round + 1, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
+            data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
              on_finish: function(data) {
                 data.trial = trial - 1;
                 saveSurveyData(data);
@@ -421,7 +433,7 @@ const exp = (function() {
             ],
             randomize_question_order: false,
             scale_width: 600,
-            data: {round: round + 1, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
+            data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
              on_finish: function(data) {
                 data.trial = trial - 1;
                 saveSurveyData(data);
@@ -437,10 +449,8 @@ const exp = (function() {
     }
 
 
-    p.round1 = new MakeSpinLoop(baseline_wheels[0], 0, playOrPredict)
-    p.round2 = new MakeSpinLoop(target_wheels[0], 1, playOrPredict)
-    p.round3 = new MakeSpinLoop(target_wheels[1], 2, playOrPredict)
-    //p.round4 = new MakeSpinLoop(target_wheels[2], 3, playOrPredict)
+    p.round1 = new MakeSpinLoop(target_wheels[0], 1, playOrPredict)
+    p.round2 = new MakeSpinLoop(target_wheels[1], 2, playOrPredict)
 
    /*
     *
@@ -528,6 +538,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round2, exp.round3, exp.demographics, exp.save_data];
+const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.round2, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);

@@ -59,7 +59,7 @@ const getTotalErrors = (data, correctAnswers) => {
     return totalErrors;
 };
 
-const createSpinner = function(canvas, spinnerData, sectors, lose, interactive) {
+const createSpinner = function(canvas, spinnerData, sectors, outcome, interactive) {
 
   /* get context */
   const ctx = canvas.getContext("2d"); 
@@ -76,6 +76,8 @@ const createSpinner = function(canvas, spinnerData, sectors, lose, interactive) 
   const rad = wheelWidth / 2; // radius of wheel
   const PI = Math.PI;
   const arc = (2 * PI) / tot; // arc sizes in radians
+
+  const centreDeg  = i => (270 - ((i + 0.5) * 360 / sectors.length) + 360) % 360;
 
   /* spin dynamics */
   const friction = 0.975;  // 0.995=soft, 0.99=mid, 0.98=hard
@@ -151,7 +153,8 @@ const createSpinner = function(canvas, spinnerData, sectors, lose, interactive) 
         isAccelerating = true;
         isSpinning = true;
         angVelMax = rand(25, 50);
-        giveMoment(speed)
+        //giveMoment(speed)
+        riggedSpin(outcome, direction);
       };
     };   
   };
@@ -218,6 +221,48 @@ const createSpinner = function(canvas, spinnerData, sectors, lose, interactive) 
     };
     animId = requestAnimationFrame(step);
   };
+
+  function riggedSpin(targetIdx, dir = 1) {
+
+    const arcDeg = 360 / sectors.length;
+
+    const k       = 0.6;                        
+    const jitter  = (Math.random() - 0.5) * 2 * k * (arcDeg / 2);
+    const landMod = (centreDeg(targetIdx) + jitter + 360) % 360;
+
+    const extraTurns   = Math.floor(Math.random() * 3) + 3;  // 3‑5 loops (positive)
+    const targetMod    = landMod;               // 0‑359
+    const startMod     = ((oldAngle % 360) + 360) % 360;     // 0‑359
+
+    // angular distance *in the chosen direction*
+    const cwGap  = (targetMod - startMod + 360) % 360;       // 0‑359 clockwise
+    const ccwGap = cwGap === 0 ? 0 : cwGap - 360;            // 0…‑359 counter‑cw
+    const gap    = dir === 1 ? cwGap : ccwGap;               // pick sign
+
+    const totalDeg = dir * extraTurns * 360 + gap;           // whole journey
+    const dur      = 3000;                                   // ms
+    const t0       = performance.now();
+
+    function ease(t){ return 1 - Math.pow(1 - t, 4); }       // quartic ease‑out
+
+    function step(ts){
+        const p   = Math.min(1, (ts - t0) / dur);
+        const deg = oldAngle + totalDeg * ease(p);
+        render(deg);
+        if (p < 1){
+            requestAnimationFrame(step);
+        } else {
+            currentAngle          = deg;
+            const sector          = sectors[getIndex(deg)];
+            spinnerData.outcome   = sector.label;
+            drawSector(sectors, getIndex(deg));
+            updateScore(+sector.label, sector.color);
+            isSpinning = false;
+        }
+    }
+    isSpinning = true;
+    requestAnimationFrame(step);
+  }
 
   /* generate random float in range min-max */
   const rand = (m, M) => Math.random() * (M - m) + m;
