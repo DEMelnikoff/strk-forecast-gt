@@ -88,13 +88,13 @@ const exp = (function() {
         minLose: [
             `<div class='parent'>
                 <p>In Feel the Spin, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 50 points minus 1 point for every consecutive loss. For example:</p>
-                <p>0 losses before a win = 50 points</br>
-                1 loss before a win = 49 points</br>
-                2 losses before a win = 48 points</br>
-                3 losses before a win = 47 points</br>
-                4 losses before a win = 46 points</br>
-                5 losses before a win = 45 points</br>
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 20 points minus 1 point for every consecutive loss. For example:</p>
+                <p>0 losses before a win = 20 points</br>
+                1 loss before a win = 19 points</br>
+                2 losses before a win = 18 points</br>
+                3 losses before a win = 17 points</br>
+                4 losses before a win = 16 points</br>
+                5 losses before a win = 15 points</br>
                 ...</p>
             </div>`,
 
@@ -117,7 +117,7 @@ const exp = (function() {
                 <div style="margin-top: 50px; height:400px">
                     <div class="feedback-title">Final Streak:</div>
                     <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+40 Points</div>
+                    <div class="feedback-body">+10 Points</div>
                 </div>
             </div>`
         ],
@@ -160,7 +160,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    const ans1 = (goalType == "maxWin") ? `5` : `45`;
+    const ans1 = (goalType == "maxWin") ? `5` : `15`;
 
     const ans2 = (playOrPredict == "play") ? `I will report how immersed and absorbed I felt spinning each wheel.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
@@ -200,7 +200,7 @@ const exp = (function() {
             {
                 prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many points?`, 
                 name: `attnChk1`, 
-                options: ["0", "5", "45", "50"],
+                options: ["0", "5", "15", "20"],
             },
             {
                 prompt: `Which of the following statements is true?`, 
@@ -375,10 +375,10 @@ const exp = (function() {
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "");
-                    } else if (losingStreak_final <= 50) {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${50 - losingStreak_final} Points`);
+                    } else if (losingStreak_final <= 20) {
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${20 - losingStreak_final} Points`);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${50 - losingStreak_final} Points`);
+                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${20 - losingStreak_final} Points`);
                     };
                 }
 
