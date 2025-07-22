@@ -7,7 +7,19 @@ const exp = (function() {
 
     const playOrPredict = "play"; 
 
-    const goalType = ["maxWin", "minLose"][Math.floor(Math.random() * 2)]; 
+    const colorCondition = Math.floor(Math.random() * 2);
+
+    const hitRateCondition = Math.floor(Math.random() * 2)
+
+    const gameNames = [[`<span class="red-game">Red Game</span>`, `<span class="blue-game">Blue Game</span>`], [`<span class="blue-game">Blue Game</span>`, `<span class="red-game">Red Game</span>`]][colorCondition]; 
+
+    const colors = [["red", "blue"], ["blue", "red"]][colorCondition]; 
+
+    const goalType = ["maxWin", "minLose"][hitRateCondition];
+
+    const previewImg_1 = [['red-win', 'red-loss'][hitRateCondition], ['blue-win', 'blue-loss'][hitRateCondition]][colorCondition];
+
+    const previewImg_2 = [['red-win', 'red-loss'][hitRateCondition], ['blue-win', 'blue-loss'][hitRateCondition]][1-colorCondition];
 
     const nTrials = 20;
 
@@ -27,31 +39,32 @@ const exp = (function() {
         welcome: [
             `<div class='parent'>
                 <p><strong>Welcome!</strong></p>
-                <p>In this survey, you will play a game called "Feel the Spin."</p>
-                <p>At various points in the game, you'll report how you feel while playing it.</p>
+                <p>In this survey, you'll play two different games.</p>
+                <p>After each game, you'll report how you felt while playing it.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>The goal of Feel the Spin is to earn as many points as possible.</p>
-                <p>You'll earn points by spinning various prize wheels.</p>
+                <p>The first game you'll play is called the ${gameNames[0]}.</p>
+                <p>The goal of the ${gameNames[0]} is to win as many points as possible.</p>
+                <p>You'll win points by spinning a prize wheel.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into wedges, like this:</p>                
-                <img src="./img/pre-pic.png" style="width:400px; height:400px">
+                <p>The wheel is divided into wedges, like this:</p>                
+                <img src="./img/${previewImg_1}.png" style="width:400px; height:400px">
             </div>`,
 
             `<div class='parent'>
                 <p>Wedges with a W are "winning wedges."</p>
                 <p>Wedges with a L are "losing wedges."</p>
-                <img src="./img/pre-pic.png" style="width:400px; height:400px">
+                <img src="./img/${previewImg_1}.png" style="width:400px; height:400px">
             </div>`,
         ],
 
         maxWin: [
             `<div class='parent'>
-                <p>In Feel the Spin, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
-                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll earn 1 point for every consecutive win. For example:</p>
+                <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll win.
+                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll win 1 point for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
                 1 win before a loss = 1 point</br>
                 2 wins before a loss = 2 points</br>
@@ -66,29 +79,26 @@ const exp = (function() {
                 <br>For example, after 10 consecutive wins, you'd see the following:</p>
                 <div style="margin-top: 50px; height:200px">
                     <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak">10</div>
-                    <div class="feedback-body"></div>
-                </div>
+                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
+                </div> 
             </div>`,
 
             `<div class='parent'>
-                <p>After each loss, a message appears indicating the number of points earned.</p>
+                <p>After each loss, a message appears indicating the number of points won.</p>
             </div>`,
             
             `<div class='parent'>
                 <p>For example, if you lose after 10 consecutive wins, you'll see the following:</p>
-                <div style="margin-top: 50px; height:400px">
-                    <div class="feedback-title">Final Streak:</div>
-                    <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+10 points</div>
+                <div style="margin-top: 50px; height:200px">
+                    <div class="feedback-body" style="color:${colors[0]}">+10 points</div>
                 </div>
             </div>`
         ],
 
         minLose: [
             `<div class='parent'>
-                <p>In Feel the Spin, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll earn 20 points minus 1 point for every consecutive loss. For example:</p>
+                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll win.
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll win 20 points minus 1 point for every consecutive loss. For example:</p>
                 <p>0 losses before a win = 20 points</br>
                 1 loss before a win = 19 points</br>
                 2 losses before a win = 18 points</br>
@@ -103,36 +113,51 @@ const exp = (function() {
                 <br>For example, after 10 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
                     <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak">10</div>
-                    <div class="feedback-body"></div>
+                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
                 </div>
             </div>`,
 
             `<div class='parent'>
-                <p>After each win, a message appears indicating the number of points earned.</p>
+                <p>After each win, a message appears indicating the number of points won.</p>
             </div>`,
             
             `<div class='parent'>
                 <p>For example, if you win after 10 consecutive losses, you'll see the following:</p>
-                <div style="margin-top: 50px; height:400px">
-                    <div class="feedback-title">Final Streak:</div>
-                    <div class="feedback-streak">10</div>
-                    <div class="feedback-body">+10 Points</div>
+                <div style="margin-top: 50px; height:200px">
+                    <div class="feedback-body" style="color:${colors[0]}">+10 Points</div>
                 </div>
             </div>`
         ],
 
         play: [
             `<div class='parent'>
-                <p>To spin a prize wheel, just grab and pull it with your cursor.</p>
+                <p>To spin the prize wheel, just grab and pull it with your cursor.</p>
                 <p>Watch the animation below to see how it's done.</p>
                 <img src="./img/spin-gif.gif" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>You'll spin a variety of different wheels. Each wheel has different colors and numbers of winning and losing wedges. 
-                For each wheel, you'll report how <b>immersed</b> and <b>absorbed</b> you felt playing Feel the Spin with it.</p>
-                <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed spinning each wheel. The focus is solely on your sense of immersion and absorption.</p>
+                <p>After finishing the ${gameNames[0]}, you'll report how <b>immersed</b> and <b>absorbed</b> you felt playing it.</p>
+                <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed the ${gameNames[0]}. The focus is solely on your sense of immersion and absorption.</p>
+            </div>`,   
+        ],
+
+        nextRound: [
+            `<div class='parent'>
+                <p>The ${gameNames[0]} is now complete!</p>
+                <p>Next, you'll play the second game.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>The second game is called the ${gameNames[1]}.</p>
+                <p>The ${gameNames[1]} is identical to the ${gameNames[0]} with one excepction: The wheel is different.</p>
+                <p>Specifically, in the ${gameNames[1]} the wheel looks like this:</p>
+                <img src="./img/${previewImg_2}.png" style="width:400px; height:400px">
+            </div>`,
+
+            `<div class='parent'>
+                <p>After finishing the ${gameNames[1]}, you'll report how <b>immersed</b> and <b>absorbed</b> you felt playing it.</p>
+                <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed the ${gameNames[1]}. The focus is solely on your sense of immersion and absorption.</p>
             </div>`,   
         ],
 
@@ -162,15 +187,15 @@ const exp = (function() {
 
     const ans1 = (goalType == "maxWin") ? `5` : `15`;
 
-    const ans2 = (playOrPredict == "play") ? `I will report how immersed and absorbed I felt spinning each wheel.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
+    const ans2 = (playOrPredict == "play") ? `I will report how immersed and absorbed I felt playing the ${gameNames[0]}.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
     const correctAnswer = [ans1, ans2];
 
     const options_play = [
-        `I will report how happy I felt spinning each wheel.`, 
-        `I will report how much I enjoyed spinning each wheel.`,
-        `I will report how immersed and absorbed I felt spinning each wheel.`,
-        `I will report how much I liked spinning each wheel.`
+        `I will report how happy I felt playing the ${gameNames[0]}.`, 
+        `I will report how much I enjoyed playing the ${gameNames[0]}.`,
+        `I will report how immersed and absorbed I felt playing the ${gameNames[0]}.`,
+        `I will report how much I liked playing the ${gameNames[0]}.`
     ];
 
     const options_predict = [
@@ -239,6 +264,14 @@ const exp = (function() {
         allow_keys: false,
     };
 
+    p.transition = {
+        type: jsPsychInstructions,
+        pages: [...html.nextRound, ...html.postIntro],
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
     p.consent = {
         type: jsPsychExternalHtml,
         url: "./html/consent.html",
@@ -251,6 +284,10 @@ const exp = (function() {
     *   TASK
     *
     */
+
+    const reds = ["#F25555", "#951C1C"]
+
+    const blues = ["#558CF2", "#1C3C95"]
 
     // wedge colors
     let vibrantColors = [
@@ -274,27 +311,35 @@ const exp = (function() {
 
     // define each wheel
     let target_wheels = [
-        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 5, mi: 1},
-        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 2, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
+        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 5, mi: 1},
+        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 2, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
     ];
 
     target_wheels = jsPsych.randomization.repeat(target_wheels, 1);
 
     // html functions
-    let displayFeedback = (title, streak, body) => {
-        let html = 
-        `<div class="score-board-blank"></div> 
-        <div class="feedback-container">
-            <div class="feedback-title">${title}</div>
-            <div class="feedback-streak">${streak}</div>
-            <div class="feedback-body">${body}</div>
-        </div>`
+    let displayFeedback = (title, streak, body, color) => {
+        const html_streak = 
+            `<div class="score-board-blank"></div> 
+            <div class="feedback-container">
+                <div class="feedback-title">${title}</div>
+                <div class="feedback-streak" style="color:${color}">${streak}</div>
+            </div>`;
+
+        const html_feedback = 
+            `<div class="score-board-blank"></div> 
+            <div class="feedback-container">
+                <div class="feedback-body" style="color:${color}">${body}</div>
+            </div>`;
+
+        const html = (streak) ? html_streak : html_feedback;
+
         return html;
     };
     
 
 
-    const MakeSpinLoop = function(wheel, round, play) {
+    const MakeSpinLoop = function(wheel, round, play, color, gameName) {
 
         let outcome;
         let trial = 1;
@@ -328,8 +373,8 @@ const exp = (function() {
             type: jsPsychCanvasButtonResponse,
             stimulus: function(c, spinnerData) {
                 if (trial == 1) {
-                    wedges.win.color = vibrantColors.pop();
-                    wedges.lose.color = vibrantColors.pop();
+                    wedges.win.color = (color == "red") ? reds[0] : blues[0]
+                    wedges.lose.color = (color == "red") ? reds[1] : blues[1]
                 };
                 shuffledSectors = jsPsych.randomization.repeat(wheel.sectors, 1);
                 createSpinner(c, spinnerData, shuffledSectors, targetOutcome, true);
@@ -368,17 +413,17 @@ const exp = (function() {
 
                 if (goalType == "maxWin") {
                     if (outcome == "W" && trial < nTrials) {
-                        standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "");
+                        standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "", color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, winningStreak_final, `+${winningStreak_final} Points`);
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${winningStreak_final} Points`, color);
                     };
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
-                        standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "");
+                        standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "", color);
                     } else if (losingStreak_final <= 20) {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `+${20 - losingStreak_final} Points`);
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${20 - losingStreak_final} Points`, color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, losingStreak_final, `${20 - losingStreak_final} Points`);
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `${20 - losingStreak_final} Points`, color);
                     };
                 }
 
@@ -426,7 +471,7 @@ const exp = (function() {
         const flowMeasure_play = {
             type: jsPsychSurveyLikert,
             questions: [
-                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel spinning the previous wheel?`,
+                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel playing the ${gameName}?`,
                 name: `flow`,
                 labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
             ],
@@ -448,8 +493,8 @@ const exp = (function() {
     }
 
 
-    p.round1 = new MakeSpinLoop(target_wheels[0], 1, playOrPredict)
-    p.round2 = new MakeSpinLoop(target_wheels[1], 2, playOrPredict)
+    p.round1 = new MakeSpinLoop(target_wheels[0], 1, playOrPredict, colors[0], gameNames[0])
+    p.round2 = new MakeSpinLoop(target_wheels[1], 2, playOrPredict, colors[1], gameNames[1])
 
    /*
     *
@@ -537,6 +582,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.round2, exp.demographics, exp.save_data];
+const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.transition, exp.round2, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
