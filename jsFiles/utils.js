@@ -153,8 +153,8 @@ const createSpinner = function(canvas, spinnerData, sectors, outcome, interactiv
         isAccelerating = true;
         isSpinning = true;
         angVelMax = rand(25, 50);
-        //giveMoment(speed)
-        riggedSpin(outcome, direction);
+        giveMoment(speed)
+        //riggedSpin(outcome, direction);
       };
     };   
   };

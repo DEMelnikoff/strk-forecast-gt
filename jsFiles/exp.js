@@ -274,8 +274,8 @@ const exp = (function() {
 
     // define each wheel
     let target_wheels = [
-        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 5, mi: 1},
-        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 2, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
+        {sectors: [ wedges.lose, wedges.lose, wedges.lose, wedges.win ], wheel_id: 1, reliability: 1, label: "100%", nWin: 1, ev: 5, mi: 1},
+        {sectors: [ wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 2, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
     ];
 
     target_wheels = jsPsych.randomization.repeat(target_wheels, 1);
@@ -332,7 +332,7 @@ const exp = (function() {
                     wedges.lose.color = vibrantColors.pop();
                 };
                 shuffledSectors = jsPsych.randomization.repeat(wheel.sectors, 1);
-                createSpinner(c, spinnerData, wheel.sectors, targetOutcome, true);
+                createSpinner(c, spinnerData, shuffledSectors, targetOutcome, true);
             },
             canvas_size: [500, 500],
             scoreBoard: function() {
