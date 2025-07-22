@@ -9,17 +9,21 @@ const exp = (function() {
 
     const colorCondition = Math.floor(Math.random() * 2);
 
-    const hitRateCondition = Math.floor(Math.random() * 2)
+    const goalTypeCondition = Math.floor(Math.random() * 2);
 
-    const gameNames = [[`<span class="red-game">Red Game</span>`, `<span class="blue-game">Blue Game</span>`], [`<span class="blue-game">Blue Game</span>`, `<span class="red-game">Red Game</span>`]][colorCondition]; 
+    const hitRateCondition = Math.floor(Math.random() * 2);
+
+    const gameNames = [['<span class="red-game">Red Game</span>', '<span class="blue-game">Blue Game</span>'], ['<span class="blue-game">Blue Game</span>', '<span class="red-game">Red Game</span>']][colorCondition]; 
 
     const colors = [["red", "blue"], ["blue", "red"]][colorCondition]; 
 
-    const goalType = ["maxWin", "minLose"][hitRateCondition];
+    const hitRates = [["win", "loss"], ["loss", "win"]][hitRateCondition]; 
 
-    const previewImg_1 = [['red-win', 'red-loss'][hitRateCondition], ['blue-win', 'blue-loss'][hitRateCondition]][colorCondition];
+    const goalType = ["maxWin", "minLose"][goalTypeCondition];
 
-    const previewImg_2 = [['red-win', 'red-loss'][hitRateCondition], ['blue-win', 'blue-loss'][hitRateCondition]][1-colorCondition];
+    const previewImg_1 = [`${colors[0]}-${hitRates[0]}`];
+
+    const previewImg_2 = [`${colors[1]}-${hitRates[1]}`];
 
     const nTrials = 20;
 
@@ -50,7 +54,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>The wheel is divided into wedges, like this:</p>                
+                <p>In the ${gameNames[0]}, the wheel looks like this:</p>                
                 <img src="./img/${previewImg_1}.png" style="width:400px; height:400px">
             </div>`,
 
@@ -84,7 +88,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>After each loss, a message appears indicating the number of points won.</p>
+                <p>After each loss, a message appears indicating the number of points you won.</p>
             </div>`,
             
             `<div class='parent'>
@@ -118,7 +122,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>After each win, a message appears indicating the number of points won.</p>
+                <p>After each win, a message appears indicating the number of points you won.</p>
             </div>`,
             
             `<div class='parent'>
@@ -133,7 +137,7 @@ const exp = (function() {
             `<div class='parent'>
                 <p>To spin the prize wheel, just grab and pull it with your cursor.</p>
                 <p>Watch the animation below to see how it's done.</p>
-                <img src="./img/spin-gif.gif" style="width:50%; height:50%">
+                <img src="./img/${previewImg_1}-gif.gif" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
@@ -187,15 +191,15 @@ const exp = (function() {
 
     const ans1 = (goalType == "maxWin") ? `5` : `15`;
 
-    const ans2 = (playOrPredict == "play") ? `I will report how immersed and absorbed I felt playing the ${gameNames[0]}.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
+    const ans2 = (playOrPredict == "play") ? `Report how immersed and absorbed I felt playing it.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
     const correctAnswer = [ans1, ans2];
 
     const options_play = [
-        `I will report how happy I felt playing the ${gameNames[0]}.`, 
-        `I will report how much I enjoyed playing the ${gameNames[0]}.`,
-        `I will report how immersed and absorbed I felt playing the ${gameNames[0]}.`,
-        `I will report how much I liked playing the ${gameNames[0]}.`
+        `Report how happy I felt playing it.`, 
+        `Report how much I enjoyed playing it.`,
+        `Report how immersed and absorbed I felt playing it.`,
+        `Report how much I liked playing it.`
     ];
 
     const options_predict = [
@@ -219,7 +223,7 @@ const exp = (function() {
     const attnChk = {
         type: jsPsychSurveyMultiChoice,
         preamble: `<div class='parent'>
-            <p>Please answer the following question.</p>
+            <p>Please answer the following questions.</p>
             </div>`,
         questions: [
             {
@@ -228,9 +232,9 @@ const exp = (function() {
                 options: ["0", "5", "15", "20"],
             },
             {
-                prompt: `Which of the following statements is true?`, 
+                prompt: `What will do you after playing the ${gameNames[0]}?`, 
                 name: `attnChk2`, 
-                options: options,
+                options: options_play,
             },
         ],
         scale_width: 500,
@@ -315,7 +319,7 @@ const exp = (function() {
         {sectors: [ wedges.win, wedges.win, wedges.win, wedges.win, wedges.lose  ], wheel_id: 2, reliability: 1, label: "100%", nWin: 4, ev: 7.67, mi: .65},
     ];
 
-    target_wheels = jsPsych.randomization.repeat(target_wheels, 1);
+    if (hitRateCondition == 0) { target_wheels = [target_wheels[1], target_wheels[0]] };
 
     // html functions
     let displayFeedback = (title, streak, body, color) => {
