@@ -49,8 +49,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The first game you'll play is called the ${gameNames[0]}.</p>
-                <p>The goal of the ${gameNames[0]} is to win as many points as possible.</p>
-                <p>You'll win points by spinning a prize wheel.</p>
+                <p>The ${gameNames[0]} involves spinning a prize wheel.</p>
             </div>`,
 
             `<div class='parent'>
@@ -67,68 +66,58 @@ const exp = (function() {
 
         maxWin: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, you'll earn a "jackpot" whenever you land on a losing wedge. The size of the jackpot depends on the number of consecutive wins prior to the loss.
-                Specifically, the jackpot starts at 0 points and increases by 1 point for each consecutive win. For example:</p>
-                <p>0 wins before a loss = 0 points</br>
-                1 win before a loss = 1 point</br>
-                2 wins before a loss = 2 points</br>
-                3 wins before a loss = 3 points</br>
-                4 wins before a loss = 4 points</br>
-                5 wins before a loss = 5 points</br>
-                ...</p>
+                <p>In the ${gameNames[0]}, your goal is to make your winning streaks as long as possible.</p>
+                <p>Each time you land on a winning wedge, your winning streak will increase by 1. The only way to "break" a winning streak is to land on a losing wedge.</p>
+                <p>The longer your winning streaks, the better!</p>
             </div>`,
 
             `<div class='parent'>
-                <p>The size of the jackpot is displayed throughout the game.
-                <br>For example, after 9 consecutive wins, you'll see the following:</p>
-                <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-title">Current Jackpot:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">9</div>
+                <p>The length of your current winning streak is displayed throughout the game.
+                <br>For example, after 10 consecutive wins, you'd see the following:</p>
+                <div style="margin-top: 50px; height:300px">
+                    <div class="feedback-title">Current Streak:</div>
+                    <div class="feedback-streak" style="color:grey">10</div>
                 </div> 
             </div>`,
 
             `<div class='parent'>
-                <p>After each loss, a message appears indicating the number of points you won.</p>
+                <p>After each loss, a message appears indicating how long your streak lasted.</p>
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you lose after 9 consecutive wins, you'll see the following:</p>
-                <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+9 points</div>
+                <p>For example, after breaking a streak of 10, you'd see the following:</p>
+                <div style="margin-top: 50px; height:300px">
+                    <div class="feedback-title">Completed Streak:</div>
+                    <div class="feedback-body" style="color:${colors[0]}">10</div>
                 </div>
             </div>`
         ],
 
         minLose: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, you'll earn a "jackpot" whenever you land on a winning wedge. The size of the jackpot depends on the number of consecutive losses prior to the win.
-                Specifically, the jackpot starts at 20 points and decreases by 1 point for each consecutive loss. For example:</p>
-                <p>0 losses before a win = 20 points</br>
-                1 loss before a win = 19 points</br>
-                2 losses before a win = 18 points</br>
-                3 losses before a win = 17 points</br>
-                4 losses before a win = 16 points</br>
-                5 losses before a win = 15 points</br>
-                ...</p>
+                <p>In the ${gameNames[0]}, your goal is to make your losing streaks as short as possible.</p>
+                <p>Each time you land on a losing wedge, your losing streak will increase by 1. The only way to "break" a losing streak is to land on a winning wedge.</p>
+                <p>The shorter your losing streaks, the better!</p>
             </div>`,
 
             `<div class='parent'>
-                <p>The size of the jackpot is displayed throughout the game.
-                <br>For example, after 9 consecutive losses, you'll see the following:</p>
-                <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-title">Current Jackpot:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">11</div>
-                </div>
+                <p>The length of your current losing streak is displayed throughout the game.
+                <br>For example, after 10 consecutive losses, you'd see the following:</p>
+                <div style="margin-top: 50px; height:300px">
+                    <div class="feedback-title">Current Streak:</div>
+                    <div class="feedback-streak" style="color:grey">10</div>
+                </div> 
             </div>`,
 
             `<div class='parent'>
-                <p>After each win, a message appears indicating the number of points you won.</p>
+                <p>After each win, a message appears indicating how long your streak lasted.</p>
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you win after 9 consecutive losses, you'll see the following:</p>
-                <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+11 Points</div>
+                <p>For example, after breaking a streak of 10, you'd see the following:</p>
+                <div style="margin-top: 50px; height:300px">
+                    <div class="feedback-title">Completed Streak:</div>
+                    <div class="feedback-body" style="color:${colors[0]}">10</div>
                 </div>
             </div>`
         ],
@@ -189,7 +178,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    const ans1 = (goalType == "maxWin") ? `5` : `15`;
+    const ans1 = (goalType == "maxWin") ? `Maximize the length of my winning streaks.` : `Minimize the length of my losing streaks.`;
 
     const ans2 = (playOrPredict == "play") ? `Report how immersed and absorbed I felt playing it.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
@@ -227,9 +216,9 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many points?`, 
+                prompt: `What is your goal in the ${gameNames[0]}?`, 
                 name: `attnChk1`, 
-                options: ["0", "5", "15", "20"],
+                options: ["Maximize the length of my winning streaks.", "Minimize the length of my losing streaks."],
             },
             {
                 prompt: `What will do you after playing the ${gameNames[0]}?`, 
@@ -327,13 +316,14 @@ const exp = (function() {
             `<div class="score-board-blank"></div> 
             <div class="feedback-container">
                 <div class="feedback-title">${title}</div>
-                <div class="feedback-streak" style="color:${color}">${streak}</div>
+                <div class="feedback-streak" style="color:grey">${streak}</div>
             </div>`;
 
         const html_feedback = 
             `<div class="score-board-blank"></div> 
             <div class="feedback-container">
-                <div class="feedback-body" style="color:${color}">${body}</div>
+                <div class="feedback-title">${title}</div>
+                <div class="feedback-streak" style="color:${color}">${body}</div>
             </div>`;
 
         const html = (streak) ? html_streak : html_feedback;
@@ -417,17 +407,15 @@ const exp = (function() {
 
                 if (goalType == "maxWin") {
                     if (outcome == "W" && trial < nTrials) {
-                        standardFeedback = displayFeedback(`Current Jackpot:`, winningStreak, "", color);
+                        standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "", color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${winningStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Completed Streak:`, null, winningStreak_final, color);
                     };
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
-                        standardFeedback = displayFeedback(`Current Jackpot:`, 20 - losingStreak, "", color);
-                    } else if (losingStreak_final <= 20) {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${20 - losingStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "", color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `${20 - losingStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Completed Streak:`, null, losingStreak_final, color);
                     };
                 }
 
@@ -577,7 +565,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "AoIIBfuRJTdJ",
+        experiment_id: "aRzeXoanU1xe",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
