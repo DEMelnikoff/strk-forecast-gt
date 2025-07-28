@@ -67,8 +67,8 @@ const exp = (function() {
 
         maxWin: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll win.
-                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll win 1 point for every consecutive win. For example:</p>
+                <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
+                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll get 1 point for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
                 1 win before a loss = 1 point</br>
                 2 wins before a loss = 2 points</br>
@@ -80,29 +80,29 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The length of your current winning streak is displayed throughout the game.
-                <br>For example, after 10 consecutive wins, you'd see the following:</p>
+                <br>For example, after 9 consecutive wins, you'd see the following:</p>
                 <div style="margin-top: 50px; height:200px">
                     <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
+                    <div class="feedback-streak" style="color:${colors[0]}">9</div>
                 </div> 
             </div>`,
 
             `<div class='parent'>
-                <p>After each loss, a message appears indicating the number of points you won.</p>
+                <p>After each loss, a message appears indicating the number of points you earned.</p>
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you lose after 10 consecutive wins, you'll see the following:</p>
+                <p>For example, if you lose after 9 consecutive wins, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+10 points</div>
+                    <div class="feedback-body" style="color:${colors[0]}">+9 points</div>
                 </div>
             </div>`
         ],
 
         minLose: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll win.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll win 20 points minus 1 point for every consecutive loss. For example:</p>
+                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll get 20 points minus 1 point for every consecutive loss. For example:</p>
                 <p>0 losses before a win = 20 points</br>
                 1 loss before a win = 19 points</br>
                 2 losses before a win = 18 points</br>
@@ -122,7 +122,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>After each win, a message appears indicating the number of points you won.</p>
+                <p>After each win, a message appears indicating the number of points you earned.</p>
             </div>`,
             
             `<div class='parent'>
@@ -577,7 +577,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "AoIIBfuRJTdJ",
+        experiment_id: "7Nm5RF5NGS10",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
