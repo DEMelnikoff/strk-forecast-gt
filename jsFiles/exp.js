@@ -474,8 +474,9 @@ const exp = (function() {
 
         const flowMeasure_play = {
             type: jsPsychSurveyLikert,
+            preamble: `<p>Please answer the following question as accurately and honestly as possible:</p>`,
             questions: [
-                {prompt: `While spinning the previous wheel<br>how <b>immersed</b> and <b>absorbed</b> did you feel in what you were doing?`,
+                {prompt: `While spinning the wheel in the ${gameName},<br>how <b>immersed</b> and <b>absorbed</b> did you feel in what you were doing?`,
                 name: `flow`,
                 labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
             ],
