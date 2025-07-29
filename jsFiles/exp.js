@@ -103,7 +103,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>First, the wheel is different.</p>
-                <p>Specifically, in the ${gameNames[0]} the wheel looks like this:</p>
+                <p>Specifically, in the ${gameNames[0]}, the wheel looks like this:</p>
                 <img src="./img/${previewImg_1}.png" style="width:400px; height:400px">
             </div>`,
         ],
@@ -113,7 +113,7 @@ const exp = (function() {
                 <p>Second, in the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
                 Specifically, whenever you break a winning streak by landing on a losing wedge, you'll get 5 points for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
-                1 win before a loss = 5 point</br>
+                1 win before a loss = 5 points</br>
                 2 wins before a loss = 10 points</br>
                 3 wins before a loss = 15 points</br>
                 4 wins before a loss = 20 points</br>
@@ -198,7 +198,7 @@ const exp = (function() {
             `<div class='parent'>
                 <p>The third game is called the ${gameNames[1]}.</p>
                 <p>The ${gameNames[1]} is identical to the ${gameNames[0]} with one exception: The wheel is different.</p>
-                <p>Specifically, in the ${gameNames[1]} the wheel looks like this:</p>
+                <p>Specifically, in the ${gameNames[1]}, the wheel looks like this:</p>
                 <img src="./img/${previewImg_2}.png" style="width:400px; height:400px">
             </div>`,
 
