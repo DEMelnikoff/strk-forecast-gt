@@ -98,7 +98,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The second game is called the ${gameNames[0]}.</p>
-                <p>The ${gameNames[0]} is identical to the <span class="green-game">Green Game</span> with two excepctions.
+                <p>The ${gameNames[0]} is identical to the <span class="green-game">Green Game</span> with two exceptions.
             </div>`,
 
             `<div class='parent'>
@@ -197,7 +197,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The third game is called the ${gameNames[1]}.</p>
-                <p>The ${gameNames[1]} is identical to the ${gameNames[0]} with one excepction: The wheel is different.</p>
+                <p>The ${gameNames[1]} is identical to the ${gameNames[0]} with one exception: The wheel is different.</p>
                 <p>Specifically, in the ${gameNames[1]} the wheel looks like this:</p>
                 <img src="./img/${previewImg_2}.png" style="width:400px; height:400px">
             </div>`,
