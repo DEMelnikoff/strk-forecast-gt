@@ -71,7 +71,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Each time you land on a winning wedge, you'll earn 5 points.</p>
+                <p>Each time you land on a winning wedge, you'll earn 1 point.</p>
                 <p>Each time you land on a losing wedge, you'll earn 0 points.</p>
             </div>`,
 
@@ -81,7 +81,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>After landing on a winning wedge, you'll see this message:</p>
-                <div class="win-text-inst" style="color:green; margin-bottom: 100px">+5 Points</div>
+                <div class="win-text-inst" style="color:green; margin-bottom: 100px">+1 Point</div>
             </div>`,
 
             `<div class='parent'>
@@ -111,22 +111,22 @@ const exp = (function() {
         maxWin: [
             `<div class='parent'>
                 <p>Second, in the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
-                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll get 1 point for every consecutive win. For example:</p>
+                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll get 5 points for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
-                1 win before a loss = 1 point</br>
-                2 wins before a loss = 2 points</br>
-                3 wins before a loss = 3 points</br>
-                4 wins before a loss = 4 points</br>
-                5 wins before a loss = 5 points</br>
+                1 win before a loss = 5 point</br>
+                2 wins before a loss = 10 points</br>
+                3 wins before a loss = 15 points</br>
+                4 wins before a loss = 20 points</br>
+                5 wins before a loss = 25 points</br>
                 ...</p>
             </div>`,
 
             `<div class='parent'>
                 <p>The length of your current winning streak is displayed throughout the game.
-                <br>For example, after 9 consecutive wins, you'd see the following:</p>
+                <br>For example, after 10 consecutive wins, you'd see the following:</p>
                 <div style="margin-top: 50px; height:200px">
                     <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">9</div>
+                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
                 </div> 
             </div>`,
 
@@ -135,9 +135,9 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you lose after 9 consecutive wins, you'll see the following:</p>
+                <p>For example, if you lose after 10 consecutive wins, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+9 points</div>
+                    <div class="feedback-body" style="color:${colors[0]}">+50 points</div>
                 </div>
             </div>`
         ],
@@ -145,22 +145,22 @@ const exp = (function() {
         minLose: [
             `<div class='parent'>
                 <p>Second, in the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll get 20 points minus 1 point for every consecutive loss. For example:</p>
-                <p>0 losses before a win = 20 points</br>
-                1 loss before a win = 19 points</br>
-                2 losses before a win = 18 points</br>
-                3 losses before a win = 17 points</br>
-                4 losses before a win = 16 points</br>
-                5 losses before a win = 15 points</br>
+                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll get 100 points minus 5 points for every consecutive loss. For example:</p>
+                <p>0 losses before a win = 100 points</br>
+                1 loss before a win = 95 points</br>
+                2 losses before a win = 90 points</br>
+                3 losses before a win = 85 points</br>
+                4 losses before a win = 80 points</br>
+                5 losses before a win = 75 points</br>
                 ...</p>
             </div>`,
 
             `<div class='parent'>
                 <p>The length of your current losing streak is displayed throughout the game.
-                <br>For example, after 9 consecutive losses, you'll see the following:</p>
+                <br>For example, after 10 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
                     <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">9</div>
+                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
                 </div>
             </div>`,
 
@@ -169,9 +169,9 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you win after 9 consecutive losses, you'll see the following:</p>
+                <p>For example, if you win after 10 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+11 Points</div>
+                    <div class="feedback-body" style="color:${colors[0]}">+50 Points</div>
                 </div>
             </div>`
         ],
@@ -239,11 +239,11 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    const ans1 = (goalType == "maxWin") ? `5` : `15`;
+    const ans1 = (goalType == "maxWin") ? `25` : `75`;
 
     const ans2 = (playOrPredict == "play") ? `Report how immersed and absorbed I felt in what I was doing.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
-    const correctAnswer0 = ["5", ans2];
+    const correctAnswer0 = ["1", ans2];
 
     const correctAnswer = [ans1, ans2];
 
@@ -281,7 +281,7 @@ const exp = (function() {
             {
                 prompt: `Landing on a winning wedge is worth how many points?`, 
                 name: `attnChk1`, 
-                options: ["0", "5", "15", "20"],
+                options: ["1", "5", "25", "75"],
             },
             {
                 prompt: `What will do you after playing the <span class="green-game">Green Game</span>?`, 
@@ -305,7 +305,7 @@ const exp = (function() {
             {
                 prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many points?`, 
                 name: `attnChk1`, 
-                options: ["0", "5", "15", "20"],
+                options: ["1", "5", "25", "75"],
             },
             {
                 prompt: `What will do you after playing the ${gameNames[0]}?`, 
@@ -528,9 +528,9 @@ const exp = (function() {
                     if (outcome == "L" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, losingStreak, "", color);
                     } else if (losingStreak_final <= 20) {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${20 - losingStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${100 - losingStreak_final*5} Points`, color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `${20 - losingStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `${100 - losingStreak_final*5} Points`, color);
                     };
                 };
 
