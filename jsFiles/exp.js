@@ -25,7 +25,7 @@ const exp = (function() {
 
     const previewImg_2 = [`${colors[1]}-${hitRates[1]}`];
 
-    const nTrials = 2;
+    const nTrials = 20;
 
     jsPsych.data.addProperties({
         playOrPredict: playOrPredict,
@@ -679,7 +679,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "7Nm5RF5NGS10",
+        experiment_id: "fc3ujmtE0O1e",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
