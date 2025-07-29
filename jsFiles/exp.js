@@ -25,7 +25,7 @@ const exp = (function() {
 
     const previewImg_2 = [`${colors[1]}-${hitRates[1]}`];
 
-    const nTrials = 20;
+    const nTrials = 2;
 
     jsPsych.data.addProperties({
         playOrPredict: playOrPredict,
@@ -43,31 +43,74 @@ const exp = (function() {
         welcome: [
             `<div class='parent'>
                 <p><strong>Welcome!</strong></p>
-                <p>In this survey, you'll play two different games.</p>
+                <p>In this survey, you'll play three different games.</p>
                 <p>After each game, you'll report how you felt while playing it.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>The first game you'll play is called the ${gameNames[0]}.</p>
-                <p>The goal of the ${gameNames[0]} is to win as many points as possible.</p>
+                <p>The first game you'll play is called the <span class="green-game">Green Game</span>.</p>
+                <p>The goal of the <span class="green-game">Green Game</span> is to win as many points as possible.</p>
                 <p>You'll win points by spinning a prize wheel.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, the wheel looks like this:</p>                
-                <img src="./img/${previewImg_1}.png" style="width:400px; height:400px">
+                <p>In the <span class="green-game">Green Game</span>, the wheel looks like this:</p>                
+                <img src="./img/green-wheel.png" style="width:400px; height:400px">
+            </div>`,
+
+            `<div class='parent'>
+                <p>When a wheel stops spinning, the wedge it lands on will activate.</p>
+                <p>The activated wedge will turn black, like this:</p>
+                <img src="./img/green-wheel-win.png" style="width:400px; height:400px">
             </div>`,
 
             `<div class='parent'>
                 <p>Wedges with a W are "winning wedges."</p>
                 <p>Wedges with a L are "losing wedges."</p>
+                <img src="./img/green-wheel.png" style="width:400px; height:400px">
+            </div>`,
+
+            `<div class='parent'>
+                <p>Each time you land on a winning wedge, you'll earn 5 points.</p>
+                <p>Each time you land on a losing wedge, you'll earn 0 points.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>After each spin, you'll see how many points you earned.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>After landing on a winning wedge, you'll see this message:</p>
+                <div class="win-text-inst" style="color:green; margin-bottom: 100px">+5 Points</div>
+            </div>`,
+
+            `<div class='parent'>
+                <p>After landing on a losing wedge, you'll see this message:</p>
+                <div class="win-text-inst" style="color:green; margin-bottom: 100px">+0 Points</div>
+            </div>`,
+        ],
+
+        nextRound1: [
+            `<div class='parent'>
+                <p>The <span class="green-game">Green Game</span> is now complete!</p>
+                <p>Next, you'll play the second game.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>The second game is called the ${gameNames[0]}.</p>
+                <p>The ${gameNames[0]} is identical to the <span class="green-game">Green Game</span> with two excepctions.
+            </div>`,
+
+            `<div class='parent'>
+                <p>First, the wheel is different.</p>
+                <p>Specifically, in the ${gameNames[0]} the wheel looks like this:</p>
                 <img src="./img/${previewImg_1}.png" style="width:400px; height:400px">
             </div>`,
         ],
 
         maxWin: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
+                <p>Second, in the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn.
                 Specifically, whenever you break a winning streak by landing on a losing wedge, you'll get 1 point for every consecutive win. For example:</p>
                 <p>0 wins before a loss = 0 points</br>
                 1 win before a loss = 1 point</br>
@@ -101,7 +144,7 @@ const exp = (function() {
 
         minLose: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
+                <p>Second, in the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn.
                 Specifically, whenever you break a losing streak by landing on a winning wedge, you'll get 20 points minus 1 point for every consecutive loss. For example:</p>
                 <p>0 losses before a win = 20 points</br>
                 1 loss before a win = 19 points</br>
@@ -137,23 +180,23 @@ const exp = (function() {
             `<div class='parent'>
                 <p>To spin the prize wheel, just grab and pull it with your cursor.</p>
                 <p>Watch the animation below to see how it's done.</p>
-                <img src="./img/${previewImg_1}-gif.gif" style="width:40%; height:40%">
+                <img src="./img/green-gif.gif" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>After finishing the ${gameNames[0]}, you'll report how <b>immersed</b> and <b>absorbed</b> you felt in what you were doing.</p>
-                <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed the ${gameNames[0]}. The focus is solely on your sense of immersion and absorption.</p>
+                <p>After finishing the <span class="green-game">Green Game</span>, you'll report how <b>immersed</b> and <b>absorbed</b> you felt in what you were doing.</p>
+                <p><b>IMPORTANT:</b> You will <i>not</i> rate how much you liked or enjoyed the <span class="green-game">Green Game</span>. The focus is solely on your sense of immersion and absorption.</p>
             </div>`,   
         ],
 
-        nextRound: [
+        nextRound2: [
             `<div class='parent'>
                 <p>The ${gameNames[0]} is now complete!</p>
-                <p>Next, you'll play the second game.</p>
+                <p>Next, you'll play the third game.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>The second game is called the ${gameNames[1]}.</p>
+                <p>The third game is called the ${gameNames[1]}.</p>
                 <p>The ${gameNames[1]} is identical to the ${gameNames[0]} with one excepction: The wheel is different.</p>
                 <p>Specifically, in the ${gameNames[1]} the wheel looks like this:</p>
                 <img src="./img/${previewImg_2}.png" style="width:400px; height:400px">
@@ -180,10 +223,17 @@ const exp = (function() {
         ],
     };
 
-
     const intro = {
         type: jsPsychInstructions,
-        pages: (goalType == "maxWin") ? [...html.welcome, ...html.maxWin, ...html.play] : [...html.welcome, ...html.minLose, ...html.play],
+        pages: [...html.welcome, ...html.play],
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    const transition1 = {
+        type: jsPsychInstructions,
+        pages: (goalType == "maxWin") ? [...html.nextRound1, ...html.maxWin] : [...html.nextRound1, ...html.minLose],
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -192,6 +242,8 @@ const exp = (function() {
     const ans1 = (goalType == "maxWin") ? `5` : `15`;
 
     const ans2 = (playOrPredict == "play") ? `Report how immersed and absorbed I felt in what I was doing.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
+
+    const correctAnswer0 = ["5", ans2];
 
     const correctAnswer = [ans1, ans2];
 
@@ -220,7 +272,31 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    const attnChk = {
+    const attnChk0 = {
+        type: jsPsychSurveyMultiChoice,
+        preamble: `<div class='parent'>
+            <p>Please answer the following questions.</p>
+            </div>`,
+        questions: [
+            {
+                prompt: `Landing on a winning wedge is worth how many points?`, 
+                name: `attnChk1`, 
+                options: ["0", "5", "15", "20"],
+            },
+            {
+                prompt: `What will do you after playing the <span class="green-game">Green Game</span>?`, 
+                name: `attnChk2`, 
+                options: options_play,
+            },
+        ],
+        scale_width: 500,
+        on_finish: (data) => {
+              const totalErrors = getTotalErrors(data, correctAnswer0);
+              data.totalErrors = totalErrors;
+        },
+    };
+
+    const attnChk1 = {
         type: jsPsychSurveyMultiChoice,
         preamble: `<div class='parent'>
             <p>Please answer the following questions.</p>
@@ -252,8 +328,16 @@ const exp = (function() {
       },
     };
 
-    p.instLoop = {
-      timeline: [intro, attnChk, conditionalNode],
+    p.instLoop0 = {
+      timeline: [intro, attnChk0, conditionalNode],
+      loop_function: () => {
+        const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
+        return fail;
+      },
+    };
+
+    p.instLoop1 = {
+      timeline: [transition1, attnChk1, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -268,9 +352,9 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    p.transition = {
+    p.transition2 = {
         type: jsPsychInstructions,
-        pages: [...html.nextRound, ...html.postIntro],
+        pages: [...html.nextRound2, ...html.postIntro],
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -312,6 +396,10 @@ const exp = (function() {
         lose: {color: null, font: 'white', label:"L", points: 0},
         win: {color: null, font: 'white', label:"W", points: 1},
     };
+
+    let baseline_wheel = [
+        {sectors: [ wedges.win, wedges.lose, wedges.win, wedges.lose, wedges.win, wedges.lose ], wheel_id: 0, reliability: 1, label: "100%", nWin: 3, ev: 5, mi: 1},
+    ];
 
     // define each wheel
     let target_wheels = [
@@ -370,17 +458,26 @@ const exp = (function() {
             }            
         };
 
-        let targetOutcome = targetOutcomes.pop();
+        let targetOutcome = null;
 
         // trial: spinner
         const spin = {
             type: jsPsychCanvasButtonResponse,
             stimulus: function(c, spinnerData) {
                 if (trial == 1) {
-                    wedges.win.color = (color == "red") ? reds[0] : blues[0]
-                    wedges.lose.color = (color == "red") ? reds[1] : blues[1]
+                    if (round == 0) {
+                        wedges.win.color = "#55F26A";
+                        wedges.lose.color = "#1C953C";
+                    } else {
+                        wedges.win.color = (color == "red") ? reds[0] : blues[0];
+                        wedges.lose.color = (color == "red") ? reds[1] : blues[1];
+                    }
                 };
-                shuffledSectors = jsPsych.randomization.repeat(wheel.sectors, 1);
+                if (round > 0) { 
+                    shuffledSectors = jsPsych.randomization.repeat(wheel.sectors, 1) 
+                } else {
+                    shuffledSectors = wheel.sectors;
+                };
                 createSpinner(c, spinnerData, shuffledSectors, targetOutcome, true);
             },
             canvas_size: [500, 500],
@@ -389,7 +486,7 @@ const exp = (function() {
             },
             data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
             on_finish: function(data) {
-                targetOutcome = targetOutcomes.pop();
+                //targetOutcome = targetOutcomes.pop();
                 data.trial = trial;
                 outcome = data.outcome;
                 if (outcome == "W") {
@@ -415,11 +512,17 @@ const exp = (function() {
             stimulus: function() {
                 let standardFeedback;
 
-                if (goalType == "maxWin") {
+                if (round == 0) {
+                     if (outcome == "W") {
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `+1 Point`, color);
+                    } else {
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `+0 Points`, color);
+                    };
+                } else if (goalType == "maxWin") {
                     if (outcome == "W" && trial < nTrials) {
                         standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "", color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${winningStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${winningStreak_final * 5} Points`, color);
                     };
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
@@ -429,8 +532,7 @@ const exp = (function() {
                     } else {
                         standardFeedback = displayFeedback(`Final Streak:`, null, `${20 - losingStreak_final} Points`, color);
                     };
-                }
-
+                };
 
                 return standardFeedback;
 
@@ -489,7 +591,6 @@ const exp = (function() {
             }
         };
 
-
         if (play == "play") {
             this.timeline = [spin_loop, flowMeasure_play];
         } else {
@@ -497,7 +598,7 @@ const exp = (function() {
         };
     }
 
-
+    p.round0 = new MakeSpinLoop(baseline_wheel[0], 0, playOrPredict, "green", `<span class="green-game">Green Game</span>`)
     p.round1 = new MakeSpinLoop(target_wheels[0], 1, playOrPredict, colors[0], gameNames[0])
     p.round2 = new MakeSpinLoop(target_wheels[1], 2, playOrPredict, colors[1], gameNames[1])
 
@@ -587,6 +688,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.transition, exp.round2, exp.demographics, exp.save_data];
+const timeline = [exp.consent, exp.instLoop0, exp.postIntro, exp.round0, exp.instLoop1, exp.postIntro, exp.round1, exp.transition2, exp.round2, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
