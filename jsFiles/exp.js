@@ -101,36 +101,50 @@ const exp = (function() {
 
         minLose: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll win.
-                Specifically, whenever you break a losing streak by landing on a winning wedge, you'll win 20 points minus 1 point for every consecutive loss. For example:</p>
-                <p>0 losses before a win = 20 points</br>
-                1 loss before a win = 19 points</br>
-                2 losses before a win = 18 points</br>
-                3 losses before a win = 17 points</br>
-                4 losses before a win = 16 points</br>
-                5 losses before a win = 15 points</br>
-                ...</p>
+                <p>In the ${gameNames[0]}, you'll earn a jackpot each time you land on a winning wedge.</p>
+                <p>Jackpots are worth a maximum of 5 points; after each loss, the jackpot declines by 1 point:</p>
+                <p>0 losses before a win = 5 points</br>
+                1 loss before a win = 4 points</br>
+                2 losses before a win = 3 points</br>
+                3 losses before a win = 2 points</br>
+                4 losses before a win = 1 point</p>
             </div>`,
 
             `<div class='parent'>
-                <p>The length of your current losing streak is displayed throughout the game.
-                <br>For example, after 10 consecutive losses, you'll see the following:</p>
+                <p>The size of the jackpot is displayed throughout the game.
+                <br>For example, after 3 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
+                    <div class="feedback-title">Current Jackpot:</div>
+                    <div class="feedback-streak" style="color:${colors[0]}">2</div>
                 </div>
             </div>`,
 
             `<div class='parent'>
                 <p>After each win, a message appears indicating the number of points you won.</p>
             </div>`,
-            
+
             `<div class='parent'>
-                <p>For example, if you win after 10 consecutive losses, you'll see the following:</p>
+                <p>For example, if you win after 3 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+10 Points</div>
+                    <div class="feedback-body" style="color:${colors[0]}">+2 Points</div>
                 </div>
-            </div>`
+            </div>`,
+
+            `<div class='parent'>
+                <p>If the jackpot reaches 0, you'll see the following message:</p>
+                <div style="margin-top: 50px; height:200px">
+                    <div class="feedback-body" style="color:${colors[0]}">+0 Points</div>
+                </div>
+            </div>`,
+
+            `<div class='parent'>
+                <p>After receiving 0 points, the jackpot automatically restarts at 5 points.</p>
+                <p>So, if you receive 0 points, then win on your next spin, you'll see the following message:</p>
+                <div style="margin-top: 50px; height:200px">
+                    <div class="feedback-body" style="color:${colors[0]}">+5 Points</div>
+                </div>
+            </div>`,
+
         ],
 
         play: [
@@ -573,6 +587,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.round1, exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.transition, exp.round2, exp.demographics, exp.save_data];
+const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.round1, exp.transition, exp.round2, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
