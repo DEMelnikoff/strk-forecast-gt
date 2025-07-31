@@ -487,7 +487,7 @@ const exp = (function() {
         const flowMeasure_play = {
             type: jsPsychSurveyLikert,
             questions: [
-                {prompt: `How <b>immersed</b> and <b>absorbed</b><br>did you feel playing the ${gameName}?`,
+                {prompt: `While spinning the wheel in the ${gameName}<br>how <b>immersed</b> and <b>absorbed</b> did you feel in what you were doing?`,
                 name: `flow`,
                 labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
             ],
