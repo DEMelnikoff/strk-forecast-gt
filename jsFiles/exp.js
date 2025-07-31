@@ -67,8 +67,8 @@ const exp = (function() {
 
         maxWin: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll win.
-                Specifically, whenever you break a winning streak by landing on a losing wedge, you'll win 1 point for every consecutive win. For example:</p>
+                <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn. Specifically, each time you break a winning streak, you'll learn a "jackpot." Each jackpot is worth a minimum of 0 points and increases by 1 point for each consecutive win.</p>
+                <p>To summarize:</p
                 <p>0 wins before a loss = 0 points</br>
                 1 win before a loss = 1 point</br>
                 2 wins before a loss = 2 points</br>
@@ -80,11 +80,13 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The length of your current winning streak is displayed throughout the game.
-                <br>For example, after 10 consecutive wins, you'd see the following:</p>
+                <br>For example, after 3 consecutive wins, you'd see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-title">Current Streak:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">10</div>
-                </div> 
+                    <div class="score-board">
+                        <div class="score-board-title">Current Jackpot</div>
+                        <div class="score-board-score" id="score">3</div>
+                    </div>
+                </div>
             </div>`,
 
             `<div class='parent'>
@@ -92,30 +94,32 @@ const exp = (function() {
             </div>`,
             
             `<div class='parent'>
-                <p>For example, if you lose after 10 consecutive wins, you'll see the following:</p>
+                <p>For example, if you lose after 3 consecutive wins, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+10 points</div>
+                    <div class="feedback-body" style="color:${colors[0]}">+3 points</div>
                 </div>
             </div>`
         ],
 
         minLose: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, you'll earn a jackpot each time you land on a winning wedge.</p>
-                <p>Jackpots are worth a maximum of 5 points; after each loss, the jackpot declines by 1 point:</p>
+                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn. Specifically, each time you break a losing streak, you'll learn a "jackpot." Each jackpot is worth a maximum of 5 points and declines by 1 point for each consecutive loss. If the jackpot reaches 0, it automatically restarts at 5. To summarize:</p>
                 <p>0 losses before a win = 5 points</br>
                 1 loss before a win = 4 points</br>
                 2 losses before a win = 3 points</br>
                 3 losses before a win = 2 points</br>
-                4 losses before a win = 1 point</p>
+                4 losses before a win = 1 point</br>
+                5 losses = 0 points</p>
             </div>`,
 
             `<div class='parent'>
                 <p>The size of the jackpot is displayed throughout the game.
                 <br>For example, after 3 consecutive losses, you'll see the following:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-title">Current Jackpot:</div>
-                    <div class="feedback-streak" style="color:${colors[0]}">2</div>
+                    <div class="score-board">
+                        <div class="score-board-title">Current Jackpot</div>
+                        <div class="score-board-score" id="score">2</div>
+                    </div>
                 </div>
             </div>`,
 
@@ -138,10 +142,12 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>After receiving 0 points, the jackpot automatically restarts at 5 points.</p>
-                <p>So, if you receive 0 points, then win on your next spin, you'll see the following message:</p>
+                <p>After receiving 0 points, the jackpot automatically restarts at 5 points:</p>
                 <div style="margin-top: 50px; height:200px">
-                    <div class="feedback-body" style="color:${colors[0]}">+5 Points</div>
+                    <div class="score-board">
+                        <div class="score-board-title">Current Jackpot</div>
+                        <div class="score-board-score" id="score">5</div>
+                    </div>
                 </div>
             </div>`,
 
@@ -203,7 +209,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    const ans1 = (goalType == "maxWin") ? `5` : `15`;
+    const ans1 = (goalType == "maxWin") ? `2` : `3`;
 
     const ans2 = (playOrPredict == "play") ? `Report how immersed and absorbed I felt playing it.` : `I will predict how immersed and absorbed an average person would feel playing Feel the Spin with different wheels.`;
 
@@ -241,9 +247,9 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 5 is worth how many points?`, 
+                prompt: `Landing on a ${winningOrLosing[0]} wedge after a ${winningOrLosing[1]} streak of 2 is worth how many points?`, 
                 name: `attnChk1`, 
-                options: ["0", "5", "15", "20"],
+                options: ["0", "2", "3", "4", "5"],
             },
             {
                 prompt: `What will do you after playing the ${gameNames[0]}?`, 
@@ -336,30 +342,28 @@ const exp = (function() {
     if (hitRateCondition == 0) { target_wheels = [target_wheels[1], target_wheels[0]] };
 
     // html functions
-    let displayFeedback = (title, streak, body, color) => {
-        const html_streak = 
-            `<div class="score-board-blank"></div> 
-            <div class="feedback-container">
-                <div class="feedback-title">${title}</div>
-                <div class="feedback-streak" style="color:${color}">${streak}</div>
-            </div>`;
-
-        const html_feedback = 
-            `<div class="score-board-blank"></div> 
-            <div class="feedback-container">
-                <div class="feedback-body" style="color:${color}">${body}</div>
-            </div>`;
-
-        const html = (streak) ? html_streak : html_feedback;
-
-        return html;
+    const displayFeedback = (title, body, color) => {
+        return `<div class="score-board-blank"></div> 
+        <div class="feedback-container">
+        <div class="feedback-body" style="color:${color}">${body}</div>
+        </div>`;
     };
-    
+
+    const displayJackpot = (jackpot, color) => {
+        return `<div class="score-board">
+                    <div class="score-board-title">Current Jackpot</div>
+                    <div class="score-board-score" id="score" style="color:${color}; font-size:50px"><b>${jackpot}</b></div>
+                </div>
+                <div id="jspsych-canvas-button-response-stimulus">
+                    <div style="height:500px; width:500px"></div>
+                </div>`
+    };
 
 
     const MakeSpinLoop = function(wheel, round, play, color, gameName) {
 
         let outcome;
+        let jackpot = (goalType == "maxWin") ? 0 : 5;
         let trial = 1;
         let losingStreak = 0;
         let winningStreak = 0;
@@ -379,7 +383,10 @@ const exp = (function() {
             },
             canvas_size: [500, 500],
             scoreBoard: function() {
-                return '';
+                return  `<div class="score-board">
+                <div class="score-board-title">Current Jackpot</div>
+                <div class="score-board-score" id="score" > ${jackpot} </div>
+                </div>`
             },
             data: {round: round, wheel_id: wheel.wheel_id, ev: wheel.ev, reliability: wheel.reliability, mi: wheel.mi, nWin: wheel.nWin},
             on_finish: function(data) {
@@ -389,6 +396,7 @@ const exp = (function() {
                     winningStreak++;
                     losingStreak_final = losingStreak;
                     losingStreak = 0;
+                    jackpot = (goalType == "maxWin") ? winningStreak : 5 - losingStreak;
                     if (goalType == "maxWin" && trial == nTrials) {
                         winningStreak_final = winningStreak;
                     };
@@ -396,6 +404,7 @@ const exp = (function() {
                     losingStreak++;
                     winningStreak_final = winningStreak;
                     winningStreak = 0;
+                    jackpot = (goalType == "maxWin") ? winningStreak : 5 - losingStreak;
                     if (goalType == "minLose" && trial == nTrials || goalType == "minLose" && losingStreak == 5) {
                         losingStreak_final = losingStreak;
                     };
@@ -410,25 +419,26 @@ const exp = (function() {
 
                 if (goalType == "maxWin") {
                     if (outcome == "W" && trial < nTrials) {
-                        standardFeedback = displayFeedback(`Current Streak:`, winningStreak, "", color);
+                        standardFeedback = displayJackpot(jackpot, color);
                     } else {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${winningStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Final Streak:`, `+${winningStreak_final} Points`, color);
                     };
                 } else if (goalType == "minLose") {
                     if (outcome == "L" && trial < nTrials) {
                         if (losingStreak < 5) {
-                            standardFeedback = displayFeedback(`Current Jackpot:`, `${5 - losingStreak}`, "", color);
+                            standardFeedback = displayJackpot(jackpot, color);
                         } else {
-                            standardFeedback = displayFeedback(`Final Streak:`, null, `+0 Points`, color);
+                            standardFeedback = displayFeedback(`Final Streak:`, `+0 Points`, color);
                             losingStreak = 0;
+                            jackpot = 5 - losingStreak;
                         }
                     } else if (outcome == "W" && trial < nTrials) {
-                        standardFeedback = displayFeedback(`Final Streak:`, null, `+${5 - losingStreak_final} Points`, color);
+                        standardFeedback = displayFeedback(`Final Streak:`, `+${5 - losingStreak_final} Points`, color);
                     } else {
                         if (losingStreak == 5) {
-                            standardFeedback = displayFeedback(`Final Streak:`, null, `+0 Points`, color);
+                            standardFeedback = displayFeedback(`Final Streak:`, `+0 Points`, color);
                         } else {
-                            standardFeedback = displayFeedback(`Final Streak:`, null, `+${5 - losingStreak_final} Points`, color);
+                            standardFeedback = displayFeedback(`Final Streak:`, `+${5 - losingStreak_final} Points`, color);
                         }
                     };
                 }
@@ -578,7 +588,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "AoIIBfuRJTdJ",
+        experiment_id: "vSPhTKYS8XTO",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
