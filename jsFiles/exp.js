@@ -68,7 +68,7 @@ const exp = (function() {
         maxWin: [
             `<div class='parent'>
                 <p>In the ${gameNames[0]}, earnings are based on winning streaks: the longer your winning streaks, the more points you'll earn. Specifically, each time you break a winning streak, you'll learn a "jackpot." Each jackpot is worth a minimum of 0 points and increases by 1 point for each consecutive win.</p>
-                <p>To summarize:</p
+                <p>To summarize:</p>
                 <p>0 wins before a loss = 0 points</br>
                 1 win before a loss = 1 point</br>
                 2 wins before a loss = 2 points</br>
@@ -103,7 +103,8 @@ const exp = (function() {
 
         minLose: [
             `<div class='parent'>
-                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn. Specifically, each time you break a losing streak, you'll learn a "jackpot." Each jackpot is worth a maximum of 5 points and declines by 1 point for each consecutive loss. If the jackpot reaches 0, it automatically restarts at 5. To summarize:</p>
+                <p>In the ${gameNames[0]}, earnings are based on losing streaks: the shorter your losing streaks, the more points you'll earn. Specifically, each time you break a losing streak, you'll learn a "jackpot." Each jackpot is worth a maximum of 5 points and declines by 1 point for each consecutive loss. If the jackpot reaches 0, it restarts at 5.</p>
+                <p>To summarize:</p>
                 <p>0 losses before a win = 5 points</br>
                 1 loss before a win = 4 points</br>
                 2 losses before a win = 3 points</br>
